@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- Syntaxdefinition for CSGO Config by MoNoX -->
+
+<SyntaxDefinition name = "CSGO" extensions = ".cfg">
+
+    <Properties>
+        <Property name="LineComment" value="//"/>
+    </Properties>
+
+	<RuleSets>
+	
+		<!-- Default Rule Set -->
+		<RuleSet ignorecase="false">
+		
+		</RuleSet>
+	
+	
+	
+    </RuleSets>
+</SyntaxDefinition>

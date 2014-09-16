@@ -1,0 +1,13 @@
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\bin\Debug\CSGO_CfgGen.exe
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\bin\Debug\CSGO_CfgGen.pdb
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.mainForm.resources
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.Properties.Resources.resources
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.csproj.GenerateResource.Cache
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.exe
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.pdb
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\bin\Debug\CSGO_CfgGen.exe.config
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.csprojResolveAssemblyReference.cache
+C:\Users\MONOX\documents\visual studio 2010\Projects\CSGO_CfgGen\CSGO_CfgGen\bin\Debug\ICSharpCode.TextEditor.dll
+C:\Users\MONOX\Documents\Visual Studio 2010\RCClient_Repository\CSGO_CfgGen\CSGO_CfgGen\bin\Debug\CSGO_CfgGen.exe.config
+C:\Users\MONOX\Documents\Visual Studio 2010\RCClient_Repository\CSGO_CfgGen\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.exe
+C:\Users\MONOX\Documents\Visual Studio 2010\RCClient_Repository\CSGO_CfgGen\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.pdb
