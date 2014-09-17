@@ -50,7 +50,7 @@ namespace CSGO_CfgGen
         /// Startet das parsen einer ConfigFile rekursiv
         /// </summary>
         /// <param name="cfgId"></param>
-        /// /// <param name="bParseFromFile"></param>
+        /// <param name="bParseFromFile">Gibt an, ob die existierende evtl geänderte File aus dem Speicher oder die physikalisch vorhandene File neu geparst werden soll</param>
         public void parseConfig(int cfgId, bool bParseFromFile)
         {
             ConfigFile cfgFile = this.cfgFiles.Where(cfg => cfg.Id.Equals(cfgId)).First();
@@ -62,38 +62,52 @@ namespace CSGO_CfgGen
             //Beziehungen zu anderen Files aufbauen
             //Alle gültigen Exec-Commands holen
             IEnumerable<Commando> execCmds = cfgFile.Commands.Where(cmd => 
-                cmd.CommandType.Equals(CommandType.Exec) && cmd.ValidationState.Equals(ValidationLevel.Ok));
+                cmd.CommandType == CommandType.Exec && 
+                cmd.ValidationState == ValidationLevel.Ok);
+
+            //bestehende Referenzen löschen
+            cfgFile.SubConfigRef.Clear();
 
             foreach (Commando cmd in execCmds)
             {
                 string path = cfgFile.Path.Substring(0, cfgFile.Path.LastIndexOf('\\') + 1);
                 CExec execCmd = (CExec)cmd;
                 path += execCmd.Filename;
-                if (!configFileRefExists(path))
+
+                bool bLoopDetected = bParseFromFile ? configFileRefExists(path) : configFileRefExists(path, cfgFile);
+
+                if (bLoopDetected)
                 {
-                    int id = addConfig(path, false);
-                    cfgFile.SubConfigRef.Add(new WeakReference(getConfigById(id)));
-                    parseConfig(id, true);
+                    execCmd.LoopDetected = true;
                 }
                 else
                 {
-                    execCmd.LoopDetected = true;
+                    int id = bParseFromFile ? addConfig(path, false) : getConfigByPath(path).Id;
+                    cfgFile.SubConfigRef.Add(new WeakReference(getConfigById(id)));
+                    parseConfig(id, bParseFromFile);
                 }
             }
         }
 
-        /// <summary>
-        /// Prüft die ConfigFiles & Referenzen, ob bereits eine CfgFile mit
-        /// dem übergebenen Path existiert.
-        /// </summary>
-        /// <param name="path">Pfad zur ConfigFile</param>
-        /// <returns></returns>
-        public bool configFileRefExists(string path)
+        public bool configFileRefExists(string targetPath, ConfigFile cfgFile)
         {
-            return this.cfgFiles.Any(cfgFile => 
-                cfgFile.Path.Equals(path) ||
-                cfgFile.SubConfigRef.Any(cfgSubRef => 
-                    (cfgSubRef.Target as ConfigFile).Path.Equals(path)
+            return
+                cfgFile.Path.Equals(targetPath) ||
+                cfgFile.SubConfigRef.Any(cfgref => configFileRefExists(targetPath,(ConfigFile)cfgref.Target));
+        }
+
+        /// <summary>
+        /// Prüft ALLE ConfigFiles, ob bereits eine CfgFile mit
+        /// dem übergebenen Path existiert, oder ob eine CfgFile bereits auf eine mit dem Path referenziert.
+        /// </summary>
+        /// <param name="targetPath">Pfad zur ConfigFile</param>
+        /// <returns></returns>
+        public bool configFileRefExists(string targetPath)
+        {
+            return this.cfgFiles.Any(cfgFile =>
+                cfgFile.Path.Equals(targetPath) ||
+                cfgFile.SubConfigRef.Any(cfgSubRef =>
+                    (cfgSubRef.Target as ConfigFile).Path.Equals(targetPath)
                 )
             );
         }
