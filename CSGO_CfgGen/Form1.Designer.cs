@@ -36,9 +36,9 @@ namespace CSGO_CfgGen
             this.menuItemRUN = new System.Windows.Forms.ToolStripMenuItem();
             this.treeView = new System.Windows.Forms.TreeView();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.textEditor = new ICSharpCode.TextEditor.TextEditorControl();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.listView = new System.Windows.Forms.ListView();
-            this.textEditor = new ICSharpCode.TextEditor.TextEditorControl();
             this.mainMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -100,6 +100,19 @@ namespace CSGO_CfgGen
             this.splitContainer1.SplitterDistance = 224;
             this.splitContainer1.TabIndex = 3;
             // 
+            // textEditor
+            // 
+            this.textEditor.AutoScroll = true;
+            this.textEditor.AutoScrollMargin = new System.Drawing.Size(100, 0);
+            this.textEditor.AutoSize = true;
+            this.textEditor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.textEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textEditor.IsReadOnly = false;
+            this.textEditor.Location = new System.Drawing.Point(0, 0);
+            this.textEditor.Name = "textEditor";
+            this.textEditor.Size = new System.Drawing.Size(486, 430);
+            this.textEditor.TabIndex = 0;
+            // 
             // splitContainer2
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -128,19 +141,6 @@ namespace CSGO_CfgGen
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.List;
             // 
-            // textEditor
-            // 
-            this.textEditor.AutoScroll = true;
-            this.textEditor.AutoScrollMargin = new System.Drawing.Size(100, 0);
-            this.textEditor.AutoSize = true;
-            this.textEditor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.textEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textEditor.IsReadOnly = false;
-            this.textEditor.Location = new System.Drawing.Point(0, 0);
-            this.textEditor.Name = "textEditor";
-            this.textEditor.Size = new System.Drawing.Size(486, 430);
-            this.textEditor.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,6 +152,7 @@ namespace CSGO_CfgGen
             this.MinimumSize = new System.Drawing.Size(481, 478);
             this.Name = "MainForm";
             this.Text = "CS:GO Config Manager by MoNoX";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
