@@ -81,7 +81,20 @@ namespace CSGO_CfgGen
                 }
                 else
                 {
-                    int id = bParseFromFile ? addConfig(path, false) : getConfigByPath(path).Id;
+                    int id;
+                    if (bParseFromFile)
+                        id = addConfig(path, false);
+                    else
+                    {
+                        ConfigFile file = getConfigByPath(path);
+                        if (file != null)
+                            id = file.Id;
+                        else
+                        {
+                            id = addConfig(path, false);
+                            bParseFromFile = true;
+                        }
+                    }
                     cfgFile.SubConfigRef.Add(new WeakReference(getConfigById(id)));
                     parseConfig(id, bParseFromFile);
                 }
