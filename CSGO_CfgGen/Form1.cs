@@ -50,10 +50,14 @@ namespace CSGO_CfgGen
                 });
 
             //TextEditor Anpassungen
-            FileSyntaxModeProvider csgoSyntaxProvider = new FileSyntaxModeProvider("highlighting");
-            HighlightingManager.Manager.AddSyntaxModeFileProvider(csgoSyntaxProvider);
-            textEditor.SetHighlighting("CSGO");
-
+            try
+            {
+                FileSyntaxModeProvider csgoSyntaxProvider = new FileSyntaxModeProvider("highlighting");
+                HighlightingManager.Manager.AddSyntaxModeFileProvider(csgoSyntaxProvider);
+                textEditor.SetHighlighting("CSGO");
+            }
+            catch (IOException ioEx)
+            { /*TODO*/ }
         }
         #endregion
 
