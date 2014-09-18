@@ -74,8 +74,7 @@ namespace CSGO_CfgGen
                 CExec execCmd = (CExec)cmd;
                 path += execCmd.Filename;
 
-                bool bLoopDetected = bParseFromFile ? configFileRefExists(path) : configFileRefExists(path, cfgFile);
-
+                bool bLoopDetected = checkForCircle(path, cfgFile); 
                 if (bLoopDetected)
                 {
                     execCmd.LoopDetected = true;
@@ -89,27 +88,24 @@ namespace CSGO_CfgGen
             }
         }
 
-        public bool configFileRefExists(string targetPath, ConfigFile cfgFile)
-        {
-            return
-                cfgFile.Path.Equals(targetPath) ||
-                cfgFile.SubConfigRef.Any(cfgref => configFileRefExists(targetPath,(ConfigFile)cfgref.Target));
-        }
-
         /// <summary>
-        /// Prüft ALLE ConfigFiles, ob bereits eine CfgFile mit
-        /// dem übergebenen Path existiert, oder ob eine CfgFile bereits auf eine mit dem Path referenziert.
+        /// Prüft den Weg Rückwärts auf Zyklen
         /// </summary>
-        /// <param name="targetPath">Pfad zur ConfigFile</param>
+        /// <param name="targetPath"></param>
+        /// <param name="cfgFile"></param>
         /// <returns></returns>
-        public bool configFileRefExists(string targetPath)
+        public bool checkForCircle(string targetPath, ConfigFile cfgFile)
         {
-            return this.cfgFiles.Any(cfgFile =>
-                cfgFile.Path.Equals(targetPath) ||
-                cfgFile.SubConfigRef.Any(cfgSubRef =>
-                    (cfgSubRef.Target as ConfigFile).Path.Equals(targetPath)
-                )
-            );
+            if (cfgFile.Path == targetPath)
+                return true;
+
+            IEnumerable<ConfigFile> prevFiles = CfgsWhichReferTo(cfgFile);
+            return prevFiles.Any(cfg => checkForCircle(targetPath, cfg));
+        }        
+
+        private IEnumerable<ConfigFile> CfgsWhichReferTo(ConfigFile cfgFile)
+        {
+            return this.cfgFiles.Where(file => file.SubConfigRef.Any(cfgref => (cfgref.Target as ConfigFile).Id == cfgFile.Id));
         }
 
         /// <summary>
