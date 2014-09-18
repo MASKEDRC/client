@@ -21,3 +21,6 @@ C:\Users\MONOX\Documents\GitHub\client\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.csp
 C:\Users\MONOX\Documents\GitHub\client\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.MainForm.resources
 C:\Users\MONOX\Documents\GitHub\client\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.Properties.Resources.resources
 C:\Users\MONOX\Documents\GitHub\client\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.csproj.GenerateResource.Cache
+D:\Eigene Dateien\Dokumente\GitHub\client\CSGO_CfgGen\bin\Debug\CSGO_CfgGen.exe.config
+D:\Eigene Dateien\Dokumente\GitHub\client\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.exe
+D:\Eigene Dateien\Dokumente\GitHub\client\CSGO_CfgGen\obj\x86\Debug\CSGO_CfgGen.pdb

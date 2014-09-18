@@ -78,7 +78,7 @@ namespace CSGO_CfgGen
                     if (cfgFileManager.configFileRefExists(dialog.FileName))
                     {
                         //File ist bereits geladen
-                        MessageBox.Show("Diese Datei wurde bereits geladen!");
+                        MessageBox.Show("sadfasdasdasdDiese Datei wurde bereits geladen!");
                         //TODO: Ungespeicherte änderungen verwerfen und Trotzdem laden ?
                         //int id = this.cfgFileManager.reload(path);
                         //this.fillTreeView(id);
@@ -240,6 +240,11 @@ namespace CSGO_CfgGen
                 if (word.Type.Equals(TextWordType.Word))
                     word.SyntaxColor = new HighlightColor(word.Color, color, false, false);
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
                 
     }
