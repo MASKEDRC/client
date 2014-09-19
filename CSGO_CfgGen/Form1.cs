@@ -67,8 +67,6 @@ namespace CSGO_CfgGen
         {
             this.cfgFileManager = cfgFileMan;
             InitializeComponent();
-
-            // TEST
             InitializeCustomComponent();
         }
 
