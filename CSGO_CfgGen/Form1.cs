@@ -252,6 +252,28 @@ namespace CSGO_CfgGen
         {
 
         }
+
+        private void textEditor_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void about_menuitem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+    
                 
     }
 }
