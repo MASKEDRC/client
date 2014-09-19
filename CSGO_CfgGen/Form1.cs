@@ -50,10 +50,14 @@ namespace CSGO_CfgGen
                 });
 
             //TextEditor Anpassungen
-            FileSyntaxModeProvider csgoSyntaxProvider = new FileSyntaxModeProvider("highlighting");
-            HighlightingManager.Manager.AddSyntaxModeFileProvider(csgoSyntaxProvider);
-            textEditor.SetHighlighting("CSGO");
-
+            try
+            {
+                FileSyntaxModeProvider csgoSyntaxProvider = new FileSyntaxModeProvider("highlighting");
+                HighlightingManager.Manager.AddSyntaxModeFileProvider(csgoSyntaxProvider);
+                textEditor.SetHighlighting("CSGO");
+            }
+            catch (IOException ioEx)
+            { /*TODO*/ }
         }
         #endregion
 
@@ -77,10 +81,10 @@ namespace CSGO_CfgGen
             {
                 if (dialog.CheckFileExists)
                 {
-                    if (cfgFileManager.configFileRefExists(dialog.FileName))
+                    if (cfgFileManager.CfgFiles.Any(cfg => cfg.Path == dialog.FileName))
                     {
                         //File ist bereits geladen
-                        MessageBox.Show("sadfasdasdasdDiese Datei wurde bereits geladen!");
+                        MessageBox.Show("Diese Datei wurde bereits geladen!");
                         //TODO: Ungespeicherte änderungen verwerfen und Trotzdem laden ?
                         //int id = this.cfgFileManager.reload(path);
                         //this.fillTreeView(id);
@@ -220,11 +224,13 @@ namespace CSGO_CfgGen
             string[] newFileContent = textEditor.Text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             currMemFile.Commands = ConfigParser.parseLines(newFileContent, currMemFile.Path);
 
+            ConfigFile rootFile = cfgFileManager.CfgFiles.Find(cfg => cfg.Type == ConfigFileType.AUTOEXEC);
+
             //Alle Files validieren
-            cfgFileManager.parseConfig(currMemFile.Id, false);
+            cfgFileManager.parseConfig(rootFile.Id, false);
 
             clearTreeView();
-            fillTreeView(cfgFileManager.CfgFiles.Find(cfg=>cfg.Type == ConfigFileType.AUTOEXEC));
+            fillTreeView(rootFile);
 
             if (!String.IsNullOrEmpty(selCfgPath))
                 fillTextEditorStatusBox(selCfgPath);
