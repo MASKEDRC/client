@@ -96,7 +96,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Dokumentation\Issues %40 Github.url" />
     <None Include="Resources\play-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\images\form.NAME\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
