@@ -7,7 +7,7 @@ namespace CSGO_CfgGen.Commands
 {
     public class CLog : Commando
     {
-        public CLog() : base(CommandType.Log)
+        public CLog() : base(CommandType.log)
         {
         }
 

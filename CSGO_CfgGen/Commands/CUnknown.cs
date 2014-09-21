@@ -14,13 +14,14 @@ namespace CSGO_CfgGen.Commands
             get { return fullCommando; }
         }
 
-        public CUnknown(string fullCommando) : base(CommandType.UNKNOWN)
+        public CUnknown(string fullCommando) : base(CommandType.unknown)
         {
             this.fullCommando = fullCommando;
         }
 
         public override ValidationLevel validate()
         {
+            this.ValidationMessage = "Befehl unbekannt!";
             return ValidationLevel.Unknown;
         }
         

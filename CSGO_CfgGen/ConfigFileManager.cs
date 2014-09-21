@@ -62,7 +62,7 @@ namespace CSGO_CfgGen
             //Beziehungen zu anderen Files aufbauen
             //Alle gültigen Exec-Commands holen
             IEnumerable<Commando> execCmds = cfgFile.Commands.Where(cmd => 
-                cmd.CommandType == CommandType.Exec && 
+                cmd.CommandType == CommandType.exec && 
                 cmd.ValidationState == ValidationLevel.Ok);
 
             //bestehende Referenzen löschen

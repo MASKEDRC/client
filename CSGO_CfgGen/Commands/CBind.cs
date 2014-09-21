@@ -8,18 +8,31 @@ namespace CSGO_CfgGen.Commands
 {
     public class CBind : Commando
     {
-        private static string token = "bind";
+        private static readonly KeyToken[] keyboardToken = (KeyToken[])Enum.GetValues(typeof(KeyToken));
 
-        private string key;
+        /// <summary>
+        /// The assigned key
+        /// </summary>
+        private KeyToken key;
+        private string original_KeyStr;
 
-        public string Key
+        /// <summary>
+        /// The assigned key
+        /// </summary>
+        public KeyToken Key
         {
             get { return key; }
             set { key = value; }
         }
 
+        /// <summary>
+        /// Commandos
+        /// </summary>
         private Commando[] commands;
 
+        /// <summary>
+        /// Commandos
+        /// </summary>
         public Commando[] Commands
         {
             get { return commands; }
@@ -28,34 +41,42 @@ namespace CSGO_CfgGen.Commands
 
         public override string FullCommando
         {
-            get { return String.Format("{0} {1} \"{2}\"", token, key.ToString(), String.Join(";", commands.Select(cmd => cmd.FullCommando))); }
+            get 
+            { 
+                return String.Format("{0} {1} \"{2}\"",
+                    this.commandType.ToString(),
+                    this.original_KeyStr.ToString(),
+                    String.Join(";", commands.Select(cmd => cmd.FullCommando))
+                    ); 
+            }
         }
 
-        public CBind(string keyStr, Commando[] commands) : base(CommandType.Bind)
+        public CBind(string keyStr, Commando[] commands) : base(CommandType.bind)
         {
-            this.key = keyStr;
+            this.original_KeyStr = keyStr;
+            this.key = getKeyToken(keyStr);
             this.commands = commands;
         }
 
-        //private KeyToken getKeyToken(string keyStr)
-        //{
-        //    switch (keyStr)
-        //    {
-        //        case "KP_5":
-        //            return KeyToken.KP_5;
-        //        default:
-        //            return KeyToken.Other;
-        //    }
-        //}
+        /// <summary>
+        /// Gibt aus einen String das entsprechende KeyToken zurück.
+        /// </summary>
+        /// <param name="keyStr"></param>
+        /// <returns></returns>
+        private KeyToken getKeyToken(string keyStr)
+        {
+            keyStr = keyStr.ToLower();
+            return keyboardToken.FirstOrDefault(token => token.ToString().ToLower() == keyStr);
+        }
 
         public override ValidationLevel validate()
         {
-            this.validationState = ValidationLevel.Unknown;
+            this.validationState = ValidationLevel.Ok;
 
             //Key unbekannt
-            if (this.key.Equals(KeyToken.Other))
+            if (this.key == KeyToken.UNKNOWN)
             {
-                this.ValidationMessage = "";
+                this.ValidationMessage = "Taste unbekannt!";
                 this.validationState = ValidationLevel.Unknown;
             }
 

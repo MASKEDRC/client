@@ -42,7 +42,7 @@ namespace CSGO_CfgGen
         }
 
         /// <summary>
-        /// 
+        /// Parst eine Line und gibt die erkannten Commandos zurück.
         /// </summary>
         /// <param name="lineOffset">Position aus einem Text, von der aus die Line beginnt</param>
         /// <param name="line"></param>
@@ -84,7 +84,7 @@ namespace CSGO_CfgGen
             foreach (string cmdStr in finalCMDs)
             {
                 string finalCMD = cmdStr;
-                Commando cmd = createCommand(finalCMD, path);
+                Commando cmd = createCommand(lineOffset, finalCMD, path);
                 cmd.Offset = lineOffset;
                 result.Add(cmd);
                 lineOffset += finalCMD.Length;
@@ -92,19 +92,18 @@ namespace CSGO_CfgGen
             return result;
         }
 
-        private static Commando createCommand(string command, string path)
+        private static Commando createCommand(int offset, string command, string path)
         {
             CommandType commType;
             string[] args = matchCommand(command, out commType);
             switch (commType)
             {
-                case CommandType.Exec:
+                case CommandType.exec:
                     return new CExec(args[0], path.Substring(0, path.LastIndexOf('\\') + 1));
-                case CommandType.Bind:
-                    //parseLine(
-                    //return new CBind(
-                case CommandType.Log:
-                case CommandType.UNKNOWN:
+                case CommandType.bind:
+                    int sub_offset = offset + command.IndexOf(args[1]);
+                    return new CBind(args[0], parseLine(ref sub_offset, args[1], path).ToArray());
+                case CommandType.log:
                 default:
                     return new CUnknown(command);
             }
@@ -121,7 +120,7 @@ namespace CSGO_CfgGen
             Regex regex;
             string[] args = null;
             int anzParams = 0;
-            cmdType = CommandType.UNKNOWN;
+            cmdType = CommandType.unknown;
 
             foreach (KeyValuePair<CommandType, string> kvp in regexList)
             {
@@ -145,9 +144,9 @@ namespace CSGO_CfgGen
         #region RegEx-Liste
         private static Dictionary<CommandType, string> regexList = new Dictionary<CommandType, string>()
             {
-                {CommandType.Bind, "^\\$"},//TODO
-                {CommandType.Exec, @"^exec\s(.+)$"},
-                {CommandType.Log, "^\\$"},//TODO
+                {CommandType.bind, "^bind\\s\\\"?([^\\\"]+)\\\"?\\s+\\\"?([^\\\"]+)\\\"?$"},
+                {CommandType.exec, @"^exec\s(.+)$"},
+                {CommandType.log, "^\\$"},//TODO
             };
         #endregion
     }
