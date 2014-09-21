@@ -7,9 +7,9 @@ namespace CSGO_CfgGen.Commands
 {
     public enum CommandType
     {
-        UNKNOWN = 0,
-        Bind = 1,
-        Exec = 2,
-        Log = 3,
+        unknown = 0,
+        bind = 1,
+        exec = 2,
+        log = 3,
     }
 }

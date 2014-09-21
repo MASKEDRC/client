@@ -7,8 +7,6 @@ namespace CSGO_CfgGen.Commands
 {
     public class CExec : Commando
     {
-        private static string token = "exec";
-
         /// <summary>
         /// Path zum Directory in der die ConfigFile liegt, welche diesen Befehl enthält
         /// </summary>
@@ -18,7 +16,7 @@ namespace CSGO_CfgGen.Commands
         {
             get 
             {
-                return String.Format("{0} {1}", token, filename);
+                return String.Format("{0} {1}", this.commandType.ToString(), filename);
             }
         }
 
@@ -47,7 +45,7 @@ namespace CSGO_CfgGen.Commands
         }
 
 
-        public CExec(string filename, string cfgDirPath) : base(CommandType.Exec)
+        public CExec(string filename, string cfgDirPath) : base(CommandType.exec)
         {
             this.filename = filename;
             this.cfgDirPath = cfgDirPath;

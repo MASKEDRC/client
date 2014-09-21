@@ -36,7 +36,7 @@ namespace CSGO_CfgGen.Commands
             get { return validationState; }
         }
 
-        private CommandType commandType;
+        protected CommandType commandType;
 
         public CommandType CommandType
         {

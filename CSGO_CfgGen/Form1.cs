@@ -175,21 +175,28 @@ namespace CSGO_CfgGen
             foreach (Commando cmd in cfgFile.Commands)
             {
                 Color bgColor;
-                switch (cmd.ValidationState)
+                if (cmd.CommandType != Commands.CommandType.unknown)
                 {
-                    case ValidationLevel.Unknown:
-                        bgColor = Color.LightGray;
-                        break;
-                    case ValidationLevel.Warning:
-                        bgColor = Color.Yellow;
-                        break;
-                    case ValidationLevel.Error:
-                        bgColor = Color.Red;
-                        break;
-                    case ValidationLevel.Ok:
-                    default:
-                        fixedOffset += cmd.FullCommando.Length + Environment.NewLine.Length;
-                        continue;
+                    switch (cmd.ValidationState)
+                    {
+                        case ValidationLevel.Unknown:
+                            bgColor = Color.Yellow;
+                            break;
+                        case ValidationLevel.Warning:
+                            bgColor = Color.Orange;
+                            break;
+                        case ValidationLevel.Error:
+                            bgColor = Color.Red;
+                            break;
+                        case ValidationLevel.Ok:
+                        default:
+                            fixedOffset += cmd.FullCommando.Length + Environment.NewLine.Length;
+                            continue;
+                    }
+                }
+                else 
+                {
+                    bgColor = Color.LightGray;
                 }
 
                 highlightLine(fixedOffset, bgColor);
